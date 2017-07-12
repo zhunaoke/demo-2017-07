@@ -1,7 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta http-equiv="pragma" content="no-cache">
+    <meta http-equiv="Cache-Control" content="no-cache, must-revalidate">
+    <meta http-equiv="Expires" content="0"/>
+    <meta content="width=device-width, initial-scale=1.0,maximum-scale =1.0" name="viewport">
+    <meta name="MobileOptimized" content="240"/>
+    <meta name="apple-touch-fullscreen" content="YES" />
+    <meta name="format-detection" content="telephone=no" />
     <title>图像处理</title>
     <style>
         * {
@@ -30,7 +37,6 @@
 
 <div style="display:none;">
     <img src="img/bear.jpg" alt="" width="200" height="200" id="bear">
-    <!--<img src="/zhunaoke/demo-2017-07/blob/master/img/bear.jpg?raw=true" alt="" width="200" height="200" id="bear">-->
 </div>
 
 <!--图像灰度处理-->
@@ -69,8 +75,9 @@
 <!--图像清晰度处理-->
 <h2>二、图像清晰度处理</h2>
 <div class="demo3">
-
-    <canvas id="file-img"></canvas>
+    <img src="img/sign.png" alt="" width="200" height="200" style="width:200px;height:200px;">
+    <canvas id="file-img200" width="200" height="200" style="width:200px;height:200px;"></canvas>
+    <canvas id="file-img400" width="400" height="400" style="width:200px;height:200px;"></canvas>
 </div>
 
 
@@ -132,7 +139,54 @@
         }
         imgCtx.putImageData(imgData, 630, 0);
     }
+    /**
+     * 获取设备的精度
+     * @param img
+     * @returns {number}
+     */
+    function detectVerticalSquash(img) {
+        var iw = img.naturalWidth, ih = img.naturalHeight;
+        var canvas = document.createElement('canvas');
+        canvas.id = 'temp';
+        canvas.width = 1;
+        canvas.height = ih;
+        var ctx = canvas.getContext('2d');
+        ctx.drawImage(img, 0, 0);
+        var data = ctx.getImageData(0, 0, 1, ih).data;
+        //console.log(data)
+        var sy = 0;
+        var ey = ih;
+        var py = ih;
+        while (py > sy) {
+            var alpha = data[(py - 1) * 4 + 3];
+            if (alpha === 0) {
+                ey = py;
+            } else {
+                sy = py;
+            }
+            py = (ey + sy) >> 1;
+        }
+        var ratio = (py / ih);
+        return (ratio === 0) ? 1 : ratio;
+    }
 
+
+    function drawImg(){
+        var drawCanvas200=document.getElementById('file-img200');
+        var drawCtx200=drawCanvas200.getContext('2d');
+
+        var drawCanvas400=document.getElementById('file-img400');
+        var drawCtx400=drawCanvas400.getContext('2d');
+
+        var img=new Image();
+        img.src='img/sign.png';
+        img.onload=function(){
+            var ratio=detectVerticalSquash(img);
+            drawCtx200.drawImage(img,0,0,img.width*ratio,img.height*ratio,0,0,drawCanvas200.width,drawCanvas200.height);
+            drawCtx400.drawImage(img,0,0,img.width*ratio,img.height*ratio,0,0,drawCanvas400.width,drawCanvas400.height);
+        }
+    }
+    drawImg();
 
 </script>
 </body>
