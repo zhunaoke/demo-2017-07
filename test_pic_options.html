@@ -9,13 +9,13 @@
             margin: 0;
             padding: 0;
         }
-        body{
-            padding:15px;
+        body {
+            padding: 15px;
         }
-        .inline-block{
+        .inline-block {
             display: inline-block;
-            width:200px;
-            margin-right:15px;
+            width: 200px;
+            margin-right: 15px;
         }
         img {
             width: 200px;
@@ -29,7 +29,8 @@
 <body>
 
 <div style="display:none;">
-    <img src="img/bear.jpg" alt="" width="200" height="200" id="bear">
+    <!--<img src="img/bear.jpg" alt="" width="200" height="200" id="bear">-->
+    <img src="/zhunaoke/demo-2017-07/blob/master/img/bear.jpg?raw=true" alt="" width="200" height="200" id="bear">
 </div>
 
 <!--图像灰度处理-->
@@ -38,12 +39,12 @@
     <h3>1、css实现的灰度处理</h3>
     <div class="inline-block">
         <p>原图:</p>
-         <img src="img/bear.jpg" alt="熊">
+        <img src="img/bear.jpg" alt="熊">
         <!--<img src="img/confirm_btn.svg" alt="熊">-->
     </div>
     <div class="inline-block">
         <p>灰度处理后的图:</p>
-         <img src="img/bear.jpg" alt="熊" id="gray-bear">
+        <img src="img/bear.jpg" alt="熊" id="gray-bear">
         <!--<img src="img/confirm_btn.svg" alt="熊" id="gray-bear">-->
     </div>
 </div>
@@ -61,7 +62,7 @@
             <button onclick="copyImg()">复制原图</button>
             <button onclick="blackAndWhite()">变黑白</button>
         </p>
-        <canvas id="gray-bear-canvas" height="200" width="900px" style="height:200px;"></canvas>
+        <canvas id="gray-bear-canvas" height="200" width="900px" style="width:900px;height:200px;"></canvas>
     </div>
 </div>
 <!--图像清晰度处理-->
@@ -72,56 +73,49 @@
 </div>
 
 
-
-
 <script>
-    var bearImg=document.getElementById('bear');
-        var originImgSrc=bearImg.src;
-        var imgCanvas=document.getElementById('gray-bear-canvas');
-        var imgCtx=imgCanvas.getContext('2d');
-
-        var originImg=new Image();
-        originImg.src=originImgSrc;
-         originImg.crossOrigin='Anonymous';
-        /**
-         * 创建一份图片
-         */
-        function createImg(){
-            var img=new Image();
-            img.src=originImgSrc;
-             img.crossOrigin='Anonymous';
-            img.onload=function(){
-                imgCtx.drawImage(this,0,0)
-            }
+    var bearImg = document.getElementById('bear');
+    var originImgSrc = bearImg.src;
+    var imgCanvas = document.getElementById('gray-bear-canvas');
+    var imgCtx = imgCanvas.getContext('2d');
+    var originImg = new Image();
+    originImg.src = originImgSrc;
+    originImg.crossOrigin = 'Anonymous';
+    /**
+     * 创建一份图片
+     */
+    function createImg() {
+        var img = new Image();
+        img.src = originImgSrc;
+        img.crossOrigin = 'Anonymous';
+        img.onload = function () {
+            imgCtx.drawImage(this, 0, 0)
         }
-        createImg();
-
-        /**
-         * 复制原图
-         */
-        function copyImg(){
-            console.log(originImg.width, originImg.height)
-            var imgData = imgCtx.getImageData(0, 0, 200, 200);
-            imgCtx.putImageData(imgData, 210,0);
-            console.log(imgData, imgData.data);
+    }
+    createImg();
+    /**
+     * 复制原图
+     */
+    function copyImg() {
+        console.log(originImg.width, originImg.height)
+        var imgData = imgCtx.getImageData(0, 0, 200, 200);
+        imgCtx.putImageData(imgData, 210, 0);
+        console.log(imgData, imgData.data);
+    }
+    /**
+     * 将图像置为灰度图像
+     */
+    function blackAndWhite() {
+        console.log(originImg.width, originImg.height);
+        var imgData = imgCtx.getImageData(0, 0, 200, 200);
+        var data = imgData.data;
+        var length = data.length;
+        for (var i = 0; i < length; i += 4) {
+            var grey = 0.3 * data[i] + 0.59 * data[i + 1] + 0.11 * data[i + 2];
+            data[i] = data[i + 1] = data[i + 2] = grey;
         }
-        /**
-         * 将图像置为灰度图像
-         */
-        function blackAndWhite(){
-            console.log(originImg.width, originImg.height);
-            var imgData = imgCtx.getImageData(0, 0, 200, 200);
-            var data = imgData.data;
-            var length = data.length;
-            for(var i = 0; i < length; i += 4){
-                var grey = 0.3 * data[i] + 0.59 * data[i + 1] + 0.11 * data[i + 2];
-                data[i] = data[i + 1] = data[i + 2] = grey;
-            }
-            imgCtx.putImageData(imgData, 420,0);
-        }
-
-
-
+        imgCtx.putImageData(imgData, 420, 0);
+    }
 
 
 </script>
