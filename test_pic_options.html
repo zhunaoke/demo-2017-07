@@ -78,14 +78,14 @@
 
         var originImg=new Image();
         originImg.src=originImgSrc;
-         originImg.crossOrigin='Anonymous';
+         originImg.crossOrigin='anonymous';
         /**
          * 创建一份图片
          */
         function createImg(){
             var img=new Image();
             img.src=originImgSrc;
-             img.crossOrigin='Anonymous';
+             img.crossOrigin='anonymous';
             img.onload=function(){
                 imgCtx.drawImage(this,0,0)
             }
