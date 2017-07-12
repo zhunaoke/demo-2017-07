@@ -27,6 +27,11 @@
     </style>
 </head>
 <body>
+
+<div style="display:none;">
+    <img src="img/bear.jpg" alt="" width="200" height="200" id="bear">
+</div>
+
 <!--图像灰度处理-->
 <h2>一、图像灰度处理</h2>
 <div class="demo1">
@@ -70,22 +75,21 @@
 
 
 <script>
-        //    var originImgSrc='img/checkbox.png';
-//    var originImgSrc='img/confirm_btn.svg';
-        var originImgSrc='img/bear.jpg';
+    var bearImg=document.getElementById('bear');
+        var originImgSrc=bearImg.src;
         var imgCanvas=document.getElementById('gray-bear-canvas');
         var imgCtx=imgCanvas.getContext('2d');
 
         var originImg=new Image();
         originImg.src=originImgSrc;
-         originImg.crossOrigin='anonymous';
+         originImg.crossOrigin='Anonymous';
         /**
          * 创建一份图片
          */
         function createImg(){
             var img=new Image();
             img.src=originImgSrc;
-             img.crossOrigin='anonymous';
+             img.crossOrigin='Anonymous';
             img.onload=function(){
                 imgCtx.drawImage(this,0,0)
             }
