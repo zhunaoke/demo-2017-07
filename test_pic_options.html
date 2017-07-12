@@ -60,7 +60,8 @@
         <p>
             <span>用canvas画出来的原图:</span>
             <button onclick="copyImg()">复制原图</button>
-            <button onclick="blackAndWhite()">变黑白</button>
+            <button onclick="blackAndWhiteArrange()">平均值变黑白</button>
+            <button onclick="blackAndWhite()">三原色变黑白</button>
         </p>
         <canvas id="gray-bear-canvas" height="200" width="900px" style="width:900px;height:200px;"></canvas>
     </div>
@@ -103,6 +104,20 @@
         console.log(imgData, imgData.data);
     }
     /**
+     *平均色置灰
+     */
+    function blackAndWhiteArrange(){
+        console.log(originImg.width, originImg.height);
+        var imgData = imgCtx.getImageData(0, 0, 200, 200);
+        var data = imgData.data;
+        var length = data.length;
+        for (var i = 0; i < length; i += 4) {
+            var grey = (data[i] + data[i + 1] +  data[i + 2])/3;
+            data[i] = data[i + 1] = data[i + 2] = grey;
+        }
+        imgCtx.putImageData(imgData, 420, 0);
+    }
+    /**
      * 将图像置为灰度图像
      */
     function blackAndWhite() {
@@ -114,7 +129,7 @@
             var grey = 0.3 * data[i] + 0.59 * data[i + 1] + 0.11 * data[i + 2];
             data[i] = data[i + 1] = data[i + 2] = grey;
         }
-        imgCtx.putImageData(imgData, 420, 0);
+        imgCtx.putImageData(imgData, 630, 0);
     }
 
 
