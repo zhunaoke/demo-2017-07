@@ -31,6 +31,23 @@
         #gray-bear {
             filter: grayscale(100%);
         }
+        #testbtn{
+            color:#fff;
+            width:120px;
+            height:30px;
+            line-height: 30px;
+            border:1px solid #25943a;
+            background: #20b13b;
+            filter: grayscale(100%);
+        }
+        i.icon{
+            display: inline-block;
+            width:14px;
+            height:14px;
+        }
+        i.icon.icon-add{
+            background: url(img/add_ico.svg) no-repeat center;
+        }
     </style>
 </head>
 <body>
@@ -38,6 +55,7 @@
 <div style="display:none;">
     <img src="img/bear.jpg" alt="" width="200" height="200" id="bear">
 </div>
+
 
 <!--图像灰度处理-->
 <h2>一、图像灰度处理</h2>
@@ -72,6 +90,11 @@
         <canvas id="gray-bear-canvas" height="200" width="900px" style="width:900px;height:200px;"></canvas>
     </div>
 </div>
+<div>
+    <!--<button id="testbtn"><i class="icon icon-add"></i></button>-->
+    <button id="testbtn">确定</button>
+</div>
+
 <!--图像清晰度处理-->
 <h2>二、图像清晰度处理</h2>
 <div class="demo3">
