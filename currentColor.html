@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>currentColor</title>
+    <style type="text/css" media="screen">
+    .demo1 {
+        color: teal;
+        border: 1px solid currentColor;
+    }
+
+    .demo2{
+    	margin:10px 50px;
+    }
+    .demo2 a.addlink{
+    	display: inline-block;
+    	color:#000;
+    }
+     .demo2 a.addlink:link{
+    	color:pink;
+    }
+     .demo2 a.addlink:visited{
+    	color:blue;
+    }
+    .demo2 a.addlink:hover{
+    	color:teal;
+    }
+    .demo2 a.addlink:active{
+    	color:red;
+    }
+   
+    .demo2 a.addlink i.icon{
+    	display:inline-block;
+    	width:16px;
+		height:20px;
+		background-image: url(img/sprite_icons.png);
+		background-color:currentColor;
+    }
+    .demo2 a.addlink i.icon.icon-add{
+    	background-position: 0 0;
+    }
+    </style>
+</head>
+
+<body>
+    <h2>currentColor</h2>
+    <p>1、currentColor改变borderColor</p>
+    <div class="demo1">
+        <span>border的颜色与当前设置的color颜色一致</span>
+        <p style="background-color: currentColor;">
+            <span style="color:#fff;font-size: 12px;">背景色取决于父级color颜色,如果直接父级没有设置color，则会继续向父级的父级寻找，直到html根元素，如果还是没有则会使用浏览器默认的color色值</span>
+        </p>
+        <pre>
+        .demo1{
+        color:teal;
+        border:1px solid currentColor;
+        }
+	</pre>
+    </div>
+    <p>2、currentColor更改图片背景色：但是只能更改图片中的透明部分，常用图片类型为png格式图片</p>
+    <div class="demo2">
+        <a class="addlink">
+		<i class="icon icon-add" id="addicons"></i>
+		增加
+	</a>
+    </div>
+</body>
+
+</html>
