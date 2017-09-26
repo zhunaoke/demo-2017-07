@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>filter属性</title>
+    <link rel="stylesheet" type="text/css" href="rangeslider/rangeslider.css">
+    <script src="js/jquery.js"></script>
+    <script src="rangeslider/rangeslider.min.js"></script>
+    <style type="text/css" media="screen">
+    .demo1 .txtarea {
+        width: 100px;
+        background: transparent;
+        filter: blur(1px);
+        -webkit-filter: blur(1px);
+    }
+
+    .demo1 .maoboli {
+        position: relative;
+        width: 400px;
+        height: 400px;
+        overflow: auto;
+    }
+
+    .demo1 .maoboli .overlay {
+        position: absolute;
+        z-index: 1;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: rgba(0, 0, 0, .8);
+        filter: blur(10px);
+    }
+
+    .demo1 .maoboli .lightbox {
+        position: absolute;
+        z-index: 2;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        margin: auto;
+        width: 100px;
+        height: 100px;
+        background-color: #fff;
+    }
+
+    i.icon {
+        display: inline-block;
+        width: 20px;
+        height: 20px;
+        overflow: hidden;
+    }
+
+    i.icon.origin {
+        background: url(img/delete.png) no-repeat center;
+    }
+
+    i.icon>.delete {
+        position: relative;
+        background: url(img/delete.png) no-repeat center;
+        filter: drop-shadow(20px 0);
+        left: -20px;
+        border-right: 20px solid transparent;
+    }
+
+    #imgbear {
+        -webkit-filter: brightness(50%);
+        filter: brightness(50%);
+    }
+
+    #imgbear-demo5 {
+        -webkit-filter: contrast(100%);
+        filter: contrast(100%);
+    }
+
+    #imgbear-demo7 {
+        -webkit-filter: saturate(100%);
+        filter: saturate(100%);
+    }
+    #imgbear-demo8{
+    	 -webkit-filter: opacity(100%);
+        filter: opacity(100%);
+    }
+    </style>
+</head>
+
+<body>
+    <p>滤镜效果：如果要使用多种滤镜效果，那么多个滤镜之间用空格分开</p>
+    <h2>一、filter:blur 给图像设置高斯模糊</h2>
+    <div class="demo1">
+        <div class="txtarea">
+            测试
+        </div>
+        <p>毛玻璃效果</p>
+        <div class="maoboli">
+            这里是文字
+            <div class="overlay" id="overlay"></div>
+            <div class="lightbox" onmouseover="showfilter()" onmouseout="hidefilter()">这里是文字</div>
+        </div>
+    </div>
+    <!--毛玻璃效果-->
+    <script>
+    var overlay = document.getElementById('overlay');
+
+    function showfilter() {
+        overlay.style.filter = 'blur(10px)';
+    }
+
+    function hidefilter() {
+        overlay.style.filter = 'blur(0px)';
+    }
+    </script>
+    <hr>
+    <h2>二、filter:grayscale 图像灰度处理</h2>
+    <div class="demo2">
+        具体参见看例子：<a href="https://zhunaoke.github.io/demo-2017-07/test_pic_options.html" target="_blank">图像灰度处理demo</a>
+    </div>
+    <hr>
+    <h2>三、filter:drop-shadow 给图像设置阴影效果</h2>
+    <div class="demo3">
+        demo参见：<a href="http://www.zhangxinxu.com/wordpress/2016/06/png-icon-change-color-by-css/" target="_blank">demo</a>
+        <div>
+            <i class="icon origin"></i>
+            <br>
+            <i class="icon">
+            	<i class="icon delete" id="icon-del"></i>
+            </i>
+            <input type="color" name="" id="colorchange3">
+        </div>
+    </div>
+    <script>
+    $(function() {
+        var colorchange3 = document.getElementById('colorchange3');
+        colorchange3.onchange = function() {
+            console.log(this.value);
+            var icondel = $('#icon-del');
+            var shadow = 'drop-shadow(20px 0 ' + this.value + ')'
+            icondel.css({
+                '-webkit-filter': shadow,
+                'filter': shadow
+            });
+        }
+    });
+    </script>
+    <hr>
+    <h2>四、filter:brightness 调节图片的亮度</h2>
+    <div class="demo4">
+        <img src="img/bear.jpg" width="60" height="60" alt="" id="imgbear">
+        <span id="range-out">50%</span>
+        <input type="range" id="range" data-rangeslider min="0" max="100" step="1" data-orientation="horizontal">
+    </div>
+    <script>
+    $('#range').rangeslider({
+        polyfill: false,
+        onSlide: function(position, value) {
+            $('#range-out').text(value + '%');
+            $('#imgbear').css({
+                'filter': 'brightness(' + value + '%)',
+                '-webkit-filter': 'brightness(' + value + '%)'
+            })
+        }
+    })
+    </script>
+    <hr>
+    <h2>五、filter:contrast 调整图像的对比度</h2>
+    <div class="demo5">
+        <img src="img/bear.jpg" width="60" height="60" alt="" id="imgbear-demo5">
+        <span id="range-out-demo5">100%</span>
+        <input type="range" id="range-demo5" data-rangeslider min="0" max="500" step="1" data-orientation="horizontal">
+    </div>
+    <script>
+    $('#range-demo5').rangeslider({
+        polyfill: false,
+        onSlide: function(position, value) {
+            $('#range-out-demo5').text(value + '%');
+            $('#imgbear-demo5').css({
+                'filter': 'contrast(' + value + '%)',
+                '-webkit-filter': 'contrast(' + value + '%)'
+            })
+        }
+    })
+    </script>
+    <hr>
+    <h2>六、filter:grayscale 设置图像灰度</h2>
+    <div class="demo6">
+        见demo: <a href="https://zhunaoke.github.io/demo-2017-07/test_pic_options.html" target="_blank">图片置灰例子</a>
+    </div>
+    <hr>
+    <h2>七、filter:saturate 调整图像的饱和度</h2>
+    <div class="demo7">
+        <img src="img/bear.jpg" width="60" height="60" alt="" id="imgbear-demo7">
+        <span id="range-out-demo7">100%</span>
+        <input type="range" id="range-demo7" data-rangeslider min="0" max="500" step="1" data-orientation="horizontal">
+    </div>
+    <script>
+    $('#range-demo7').rangeslider({
+        polyfill: false,
+        onSlide: function(position, value) {
+            $('#range-out-demo7').text(value + '%');
+            $('#imgbear-demo7').css({
+                'filter': 'saturate(' + value + '%)',
+                '-webkit-filter': 'saturate(' + value + '%)'
+            })
+        }
+    })
+    </script>
+    <hr>
+    <h2>八、filter:opacity 设置图像透明度</h2>
+    <div class="demo8">
+        <img src="img/bear.jpg" width="60" height="60" alt="" id="imgbear-demo8">
+        <span id="range-out-demo8">100%</span>
+        <input type="range" id="range-demo8" data-rangeslider min="0" max="100" step="1" data-orientation="horizontal" value="100">
+    </div>
+    <script type="text/javascript">
+    	 $('#range-demo8').rangeslider({
+        polyfill: false,
+        onSlide: function(position, value) {
+            $('#range-out-demo8').text(value + '%');
+            $('#imgbear-demo8').css({
+                'filter': 'opacity(' + value + '%)',
+                '-webkit-filter': 'opacity(' + value + '%)'
+            })
+        }
+    })
+    </script>
+</body>
+
+</html>
